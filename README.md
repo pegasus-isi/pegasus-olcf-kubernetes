@@ -24,6 +24,8 @@ More specifically replace:
 - _AUTOMATION\_USER\_GROUP\_NAME_, with the group name your automation user belongs to (eg. csc001)
 - _AUTOMATION\_USER\_ID_, with the user id of your automation user (eg. 20001)
 - _AUTOMATION\_USER\_NAME_, with the username of your automation user (eg. csc001\_auser)
+- _AUTOMATION\_USER\_HOME\_DIR_, with the home folder of your automation user. This folder should point to
+a location on the Lustre filesytem (eg. /lustre/atlas/scratch/csc001_auser/csc001)
 
 Step 2: Login to OLCF's Kubernetes
 -----------------------------------
