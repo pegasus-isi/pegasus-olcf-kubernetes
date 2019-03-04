@@ -15,13 +15,23 @@ _Specs/pegasus-submit.yml_. Contains Kubernetes pod specification that can be us
 - An automation user for OLCF's systems
 - Allocation on OLCF's Kubernetes Cluster
 
-Step 1: Login to OLCF's Kubernetes
+Step 1: Update Docker/Dockerfile
+---------------------------------
+In Docker/Dockerfile update the section "Add automation user" with your automation user's group id, group name, user id, user name and $HOME location.
+
+More specifically replace:
+- _AUTOMATION\_USER\_GROUP\_ID_, with the group id your automation user belongs to (eg. 10001)
+- _AUTOMATION\_USER\_GROUP\_NAME_, with the group name your automation user belongs to (eg. csc001)
+- _AUTOMATION\_USER\_ID_, with the user id of your automation user (eg. 20001)
+- _AUTOMATION\_USER\_NAME_, with the username of your automation user (eg. csc001\_auser)
+
+Step 2: Login to OLCF's Kubernetes
 -----------------------------------
 ```
 oc login -u YOUR_USERNAME https://marble.ccs.ornl.gov/
 ```
 
-Step 2a: Create a new build and build the image
+Step 3a: Create a new build and build the image
 ------------------------------------------------
 ```
 oc new-build --name=pegasus-olcf -D - < Docker/Dockerfile
@@ -29,31 +39,31 @@ oc new-build --name=pegasus-olcf -D - < Docker/Dockerfile
 
 or
 
-Step 2b: Start a new build in case the Dockerfile has been updated
+Step 3b: Start a new build in case the Dockerfile has been updated
 -------------------------------------------------------------------
 ```
 oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 ```
 
-Step 3: Start a Kubernetes pod with Titan access
+Step 4: Start a Kubernetes pod with Titan access
 --------------------------------------------------
 ```
 oc create -f Specs/pegasus-submit.yml
 ```
 
-Step 4: Get an interactive shell
+Step 5: Get an interactive shell
 --------------------------------------------------
 ```
 oc rsh pegasus-submit
 ```
 
-Step 5: Start HTCondor
+Step 6: Start HTCondor
 --------------------------------------------------
 ```
 condor_master #Execute this in the interactive shell
 ```
 
-Step 6: Change to your designated HOME Dir
+Step 7: Change to your designated HOME DIR
 --------------------------------------------------
 ```
 cd $HOME #Execute this in the interactive shell
