@@ -27,6 +27,8 @@ Step 2a: Create a new build and build the image
 oc new-build --name=pegasus-olcf -D - < Docker/Dockerfile
 ```
 
+or
+
 Step 2b: Start a new build in case the Dockerfile has been updated
 -------------------------------------------------------------------
 ```
@@ -36,7 +38,7 @@ oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 Step 3: Start a Kubernetes pod with Titan access
 --------------------------------------------------
 ```
-oc create -f pegasus-submit.yml
+oc create -f Specs/pegasus-submit.yml
 ```
 
 Step 4: Get an interactive shell
