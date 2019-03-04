@@ -74,3 +74,13 @@ Step 7: Change to your designated HOME DIR
 ```
 cd $HOME #Execute this in the interactive shell
 ```
+
+Deleting the pod
+--------------------------------------------------
+
+In order to delete the pod, exit the interactive shell by typing "exit"
+and then use the following command.
+
+```
+oc delete pod pegasus-submit
+```
