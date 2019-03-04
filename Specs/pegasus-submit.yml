@@ -18,6 +18,6 @@ spec:
           memory: "2Gi"
       ports:
         - containerPort: 9618
-      image: "docker-registry.default.svc:5000/csc320/pegasus-olcf:latest"
+      image: "docker-registry.default.svc:5000/AUTOMATION_USER_GROUP_NAME/pegasus-olcf:latest"
       imagePullPolicy: Always
       command: [ "/bin/bash", "-c", "while true; do sleep 60; done" ]

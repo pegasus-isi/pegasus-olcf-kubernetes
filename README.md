@@ -51,25 +51,33 @@ Step 3b: Start a new build in case the Dockerfile has been updated
 oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 ```
 
-Step 4: Start a Kubernetes pod with Titan access
+Step 4: Update Specs/pegasus-submit.yml
+----------------------------------------
+In Specs/pegasus-submit.yml update the image that will be used for the pod instantiation.
+If you followed the instructions above to create the image, just replace:
+- _AUTOMATION\_USER\_GROUP\_NAME_, with the group name your automation user belongs to (eg. csc001)
+
+The image entry should look like this: "docker-registry.default.svc:5000/csc001/pegasus-olcf:latest"
+
+Step 5: Start a Kubernetes pod with Titan access
 --------------------------------------------------
 ```
 oc create -f Specs/pegasus-submit.yml
 ```
 
-Step 5: Get an interactive shell
+Step 6: Get an interactive shell
 --------------------------------------------------
 ```
 oc rsh pegasus-submit
 ```
 
-Step 6: Start HTCondor
+Step 7: Start HTCondor
 --------------------------------------------------
 ```
 condor_master #Execute this in the interactive shell
 ```
 
-Step 7: Change to your designated HOME DIR
+Step 8: Change to your designated HOME DIR
 --------------------------------------------------
 ```
 cd $HOME #Execute this in the interactive shell
