@@ -39,7 +39,11 @@ Step 3a: Create a new build and build the image
 oc new-build --name=pegasus-olcf -D - < Docker/Dockerfile
 ```
 
-or
+You can trace the log of the build by running:
+
+```
+oc logs -f build/pegasus-olcf-1
+```
 
 Step 3b: Start a new build in case the Dockerfile has been updated
 -------------------------------------------------------------------
