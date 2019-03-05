@@ -21,8 +21,17 @@ RUN echo "TRUST_UID_DOMAIN = TRUE" >> /etc/condor/config.d/50-main.config
 RUN echo "ALLOW_WRITE = *" >> /etc/condor/config.d/50-main.config
 
 #### Install Pegasus from repo ####
-RUN curl -o /etc/yum.repos.d/pegasus.repo http://download.pegasus.isi.edu/wms/download/rhel/7/pegasus.repo
-RUN yum -y install pegasus
+#RUN curl -o /etc/yum.repos.d/pegasus.repo http://download.pegasus.isi.edu/wms/download/rhel/7/pegasus.repo
+#RUN yum -y install pegasus
+#RUN pegasus-configure-glite
+
+#### Install Pegasus dev build ####
+RUN curl -o /opt/pegasus-4.9.1dev.tar.gz http://download.pegasus.isi.edu/pegasus/4.9.1dev/pegasus-binary-4.9.1dev-x86_64_rhel_7.tar.gz
+RUN tar -xzvf /opt/pegasus-4.9.1dev.tar.gz -C /opt
+ENV PATH "/opt/pegasus-4.9.1dev/bin:$PATH"
+ENV PYTHONPATH "/opt/pegasus-4.9.1dev/lib/python2.7/dist-packages:$PYTHONPATH"
+ENV PERL5LIB "/opt/pegasus-4.9.1dev/lib/pegasus/perl:$PERL5LIB"
+RUN rm /opt/pegasus-4.9.1dev.tar.gz
 RUN pegasus-configure-glite
 
 #### Remove quotes from project name ####
