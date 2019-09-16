@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pegasus-submit
+  annotations:
+    ccs.ornl.gov/batchScheduler: "true"
+    ccs.ornl.gov/fs: "olcf"
+  labels:
+    app: pegasus-submit
+spec:
+  containers:
+  - name: pegasus-submit
+    imagePullPolicy: Always
+    image: "docker-registry.default.svc:5000/$USER_GROUP/pegasus-olcf:latest"
+    env:
+    - name: GRIDMANAGER_SERVICE_ADDRESS
+      value: "$GRIDMANAGER_SERVICE_ADDRESS"
+    command: [ "/opt/entrypoint.sh" ]
+    resources:
+      limits:
+        cpu: "2"
+        memory: "2Gi"
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+    ports:
+    - name: condor
+      containerPort: 11000
