@@ -42,7 +42,7 @@ RUN curl -o /opt/boscoinstaller.tar.gz ftp://ftp.cs.wisc.edu/condor/bosco/${BOSC
     chown ${USER}:${USER_GROUP} -R /opt/bosco
 
 #### Copy Slurm cluster patch ####
-COPY slurm_cluster_patch.tar.gz /opt
+RUN curl -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/blob/master/Docker/slurm_cluster_patch.tar.gz
 
 #### Comment out copy of key to authorized keys ####
 RUN for lnum in {829..834}; do sed -i "${lnum}s/\(.*\)/#\1/" /opt/bosco/bin/bosco_cluster; done
