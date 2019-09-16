@@ -15,17 +15,23 @@ _Specs/pegasus-submit.yml_. Contains Kubernetes pod specification that can be us
 - An automation user for OLCF's systems
 - Allocation on OLCF's Kubernetes Cluster
 
-Step 1: Update Docker/Dockerfile
----------------------------------
-In Docker/Dockerfile update the section "Add automation user" with your automation user's group id, group name, user id, user name and $HOME location.
+Step 1a: Update bootstrap.sh
+-----------------------------
+In bootstrap.sh update the section "ENV Variables For User and Group" with your automation user's name, id, group name, group id and the Gridmanager Service Port, which must be in the range 30000-32767.
 
 More specifically replace:
-- _AUTOMATION\_USER\_GROUP\_ID_, with the group id your automation user belongs to (eg. 10001)
-- _AUTOMATION\_USER\_GROUP\_NAME_, with the group name your automation user belongs to (eg. csc001)
-- _AUTOMATION\_USER\_ID_, with the user id of your automation user (eg. 20001)
-- _AUTOMATION\_USER\_NAME_, with the username of your automation user (eg. csc001\_auser)
-- _AUTOMATION\_USER\_HOME\_DIR_, with the home folder of your automation user. This folder should point to
-a location on the Lustre filesytem (eg. /lustre/atlas/scratch/csc001_auser/csc001)
+- _USER_, with the username of your automation user (eg. csc001\_auser)
+- _USER\_ID_, with the user id of your automation user (eg. 20001)
+- _USER\_GROUP_, with the group name your automation user belongs to (eg. csc001)
+- _USER\_GROUP\_ID_, with the group id your automation user belongs to (eg. 10001)
+- _GRIDMANAGER\_SERVICE\_PORT_, with the Kubernetes Nodeport port number the Gridmanager Service should use (eg. 32752)
+
+Step 1b: Run bootstrap.sh
+--------------------------
+Generate the Dockerfile and the Spec files for your deployment.
+```
+bash bootstrap.sh
+```
 
 Step 2: Login to OLCF's Kubernetes
 -----------------------------------
@@ -51,16 +57,14 @@ Step 3b: Start a new build in case the Dockerfile has been updated
 oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 ```
 
-Step 4: Update Specs/pegasus-submit.yml
-----------------------------------------
-In Specs/pegasus-submit.yml update the image that will be used for the pod instantiation.
-If you followed the instructions above to create the image, just replace:
-- _AUTOMATION\_USER\_GROUP\_NAME_, with the group name your automation user belongs to (eg. csc001)
+Step 4: Start a Kubernetes Service that will expose your pod services
+----------------------------------------------------------------------
+```
+oc create -f Specs/pegasus-submit-service.yml
+```
 
-The image entry should look like this: "docker-registry.default.svc:5000/csc001/pegasus-olcf:latest"
-
-Step 5: Start a Kubernetes pod with Titan access
---------------------------------------------------
+Step 5: Start a Kubernetes pod with batch job submission capabilities
+----------------------------------------------------------------------
 ```
 oc create -f Specs/pegasus-submit.yml
 ```
@@ -68,7 +72,7 @@ oc create -f Specs/pegasus-submit.yml
 Step 6: Get an interactive shell
 --------------------------------------------------
 ```
-oc rsh pegasus-submit
+oc exec -it pegasus-submit /bin/bash
 ```
 
 Step 7: Start HTCondor
