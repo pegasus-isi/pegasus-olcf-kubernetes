@@ -75,16 +75,17 @@ Step 6: Get an interactive shell
 oc exec -it pegasus-submit /bin/bash
 ```
 
-Step 7: Start HTCondor
---------------------------------------------------
-```
-condor_master #Execute this in the interactive shell
-```
-
-Step 8: Change to your designated HOME DIR
+Step 7: Change to your designated HOME DIR
 --------------------------------------------------
 ```
 cd $HOME #Execute this in the interactive shell
+```
+
+Step 8: Configuring for batch submissions
+--------------------------------------------------
+If this is the first time you are using the service, configure the batch submissions by running the following command.
+```
+/opt/remote_bosco_setup #Execute this in the interactive shell
 ```
 
 Deleting the pod
