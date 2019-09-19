@@ -2,7 +2,11 @@
 
 This project prepares a container that can run on OLCF's Kubernetes infrastructure and provides yaml pod specification templates, that can be used to spawn pods that mount OLCF's GPFS filesystem and provide access to the batch schedulers of Summit, RHEA and the DTN.
 
+<img src="docs/images/pegasus-kubernetes-deployment.png?raw=true" width="600">
+
 ## Basic scripts and files
+
+_bootstrap.sh_. This script generates the personalized Dockerfile and Kubernetes pod and service specifications for your deployment. It updates the template files with your automation user acount details, and saves them under the Docker and the Specs folders.
 
 _Docker/Dockerfile_. Dockerfile used to prepare a container with Pegasus and Condor, ommiting Pegasus' R support
 
@@ -68,7 +72,7 @@ oc create -f Specs/pegasus-submit-service.yml
 Step 5: Start a Kubernetes pod with batch job submission capabilities
 ----------------------------------------------------------------------
 ```
-oc create -f Specs/pegasus-submit.yml
+oc create -f Specs/pegasus-submit-pod.yml
 ```
 
 Step 6: Get an interactive shell
@@ -87,15 +91,22 @@ Step 8: Configuring for batch submissions
 --------------------------------------------------
 If this is the first time you are using the service, configure the batch submissions by running the following command.
 ```
-/opt/remote_bosco_setup #Execute this in the interactive shell
+bash /opt/remote_bosco_setup.sh #Execute this in the interactive shell
 ```
 
-Deleting the pod
+Deleting the pod and the service
 --------------------------------------------------
-
 In order to delete the pod, exit the interactive shell by typing "exit"
 and then use the following command.
 
 ```
 oc delete pod pegasus-submit
 ```
+
+To delete the service use:
+
+```
+oc delete svc pegasus-submit-service
+```
+
+
