@@ -25,7 +25,7 @@ RUN groupadd -g ${USER_GROUP_ID} ${USER_GROUP} && \
     mkdir -p $HOME/.ssh && chmod 700 $HOME/.ssh && chown ${USER}:${USER_GROUP} $HOME/.ssh
 
 #### Install vim files ####
-RUN curl -o ${HOME}/vim.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/vim.tar.gz && \
+RUN curl -L -o ${HOME}/vim.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/vim.tar.gz && \
     tar -xzvf ${HOME}/vim.tar.gz -C ${HOME} && \
     rm ${HOME}/vim.tar.gz
 
@@ -47,7 +47,7 @@ RUN curl -o /opt/boscoinstaller.tar.gz ftp://ftp.cs.wisc.edu/condor/bosco/${BOSC
     chown ${USER}:${USER_GROUP} -R /opt/bosco
 
 #### Copy Slurm cluster patch ####
-RUN curl -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/slurm_cluster_patch.tar.gz
+RUN curl -L -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/slurm_cluster_patch.tar.gz
 
 #### Comment out copy of key to authorized keys ####
 RUN for lnum in {829..834}; do sed -i "${lnum}s/\(.*\)/#\1/" /opt/bosco/bin/bosco_cluster; done
