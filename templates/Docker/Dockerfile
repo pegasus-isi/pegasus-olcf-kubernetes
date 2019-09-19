@@ -17,12 +17,17 @@ ENV CCS_HOME "/ccs/home/${USER}"
 RUN yum -y update
 
 #### Install basic packages ####
-RUN yum -y install which java-1.8.0-openjdk-devel sudo mysql-devel postgresql-devel epel-release vim python openssh-clients libgomp rsync perl perl-Data-Dumper
+RUN yum -y install wget which java-1.8.0-openjdk-devel sudo mysql-devel postgresql-devel epel-release vim python openssh-clients libgomp rsync perl perl-Data-Dumper
 
 #### Add automation user ####
 RUN groupadd -g ${USER_GROUP_ID} ${USER_GROUP} && \
     useradd -s /bin/bash -u ${USER_ID} -g ${USER_GROUP_ID} -m ${USER} && \
     mkdir -p $HOME/.ssh && chmod 700 $HOME/.ssh && chown ${USER}:${USER_GROUP} $HOME/.ssh
+
+#### Install vim files ####
+RUN curl -o ${HOME}/vim.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/vim.tar.gz && \
+    tar -xzvf ${HOME}/vim.tar.gz -C ${HOME} && \
+    rm ${HOME}/vim.tar.gz
 
 #### Install Pegasus from tarball ####
 RUN curl -o /opt/${PEGASUS_VERSION}.tar.gz http://download.pegasus.isi.edu/pegasus/${PEGASUS_VERSION_NUM}/pegasus-binary-${PEGASUS_VERSION_NUM}-x86_64_rhel_7.tar.gz && \
@@ -42,7 +47,7 @@ RUN curl -o /opt/boscoinstaller.tar.gz ftp://ftp.cs.wisc.edu/condor/bosco/${BOSC
     chown ${USER}:${USER_GROUP} -R /opt/bosco
 
 #### Copy Slurm cluster patch ####
-RUN curl -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/blob/master/Docker/slurm_cluster_patch.tar.gz
+RUN curl -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pegasus-olcf-kubernetes/raw/master/Docker/slurm_cluster_patch.tar.gz
 
 #### Comment out copy of key to authorized keys ####
 RUN for lnum in {829..834}; do sed -i "${lnum}s/\(.*\)/#\1/" /opt/bosco/bin/bosco_cluster; done
@@ -52,8 +57,8 @@ RUN sed -i "170s/.*/        SOCAT_BIN=\/ccs\/proj\/csc355\/dtn\/socat\/bin\/soca
 
 #### Bosco Default Config ####
 RUN mv /opt/bosco/local.* /opt/bosco/local && \
-    sed -i "s/LOCAL_DIR.*/LOCAL_DIR = \/opt\/bosco\/local/" /opt/bosco/etc/condor_config && \
-    sed -i "s/LOCAL_CONFIG_FILE.*/LOCAL_CONFIG_FILE = \/opt\/bosco\/local\/condor_config.local/" /opt/bosco/etc/condor_config && \
+    sed -i "s/^LOCAL_DIR.*/LOCAL_DIR = \/opt\/bosco\/local/" /opt/bosco/etc/condor_config && \
+    sed -i "s/^LOCAL_CONFIG_FILE.*/LOCAL_CONFIG_FILE = \/opt\/bosco\/local\/condor_config.local/" /opt/bosco/etc/condor_config && \
     echo "HOSTALLOW_WRITE=*" >> /opt/bosco/local/condor_config.local
 
 #### Bosco Helper Script To Install Bosco on the DTNs ####
