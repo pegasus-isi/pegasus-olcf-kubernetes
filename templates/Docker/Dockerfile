@@ -66,7 +66,7 @@ RUN echo "#!/bin/bash" > /opt/remote_bosco_setup.sh && \
     echo "rm ${HOME}/.bosco/.clusterlist" >> /opt/remote_bosco_setup.sh && \
     echo "bosco_cluster --add ${USER}@dtn.ccs.ornl.gov slurm" >> /opt/remote_bosco_setup.sh && \
     echo "/opt/${PEGASUS_VERSION}/bin/pegasus-configure-glite ${CCS_HOME}/bosco/glite" >> /opt/remote_bosco_setup.sh && \
-    echo "tar -xzvf /opt/slurm_cluster_patch.tar.gz -C ${CCS_HOME}/bosco/glite" >> /opt/remote_bosco_setup.sh && \
+    echo "tar -xzvf /opt/slurm_cluster_patch.tar.gz -C ${CCS_HOME}/bosco/glite/bin" >> /opt/remote_bosco_setup.sh && \
     echo "sed -i \"s/\(^bsub_out.*\) < \(.*\)/\1 \2/\" ${CCS_HOME}/bosco/glite/bin/lsf_submit.sh" >> /opt/remote_bosco_setup.sh && \
     echo "sed -i \"s/supported_lrms=.*/supported_lrms=slurm,lsf/\" ${CCS_HOME}/bosco/glite/etc/batch_gahp.config" >> /opt/remote_bosco_setup.sh && \
     echo "sed -i \"s/lsf_nochecksubmission=.*/lsf_nochecksubmission=yes/\" ${CCS_HOME}/bosco/glite/etc/batch_gahp.config" >> /opt/remote_bosco_setup.sh && \
