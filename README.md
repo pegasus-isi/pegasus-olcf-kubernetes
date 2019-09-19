@@ -2,7 +2,7 @@
 
 This project prepares a container that can run on OLCF's Kubernetes infrastructure and provides yaml pod specification templates, that can be used to spawn pods that mount OLCF's GPFS filesystem and provide access to the batch schedulers of Summit, RHEA and the DTN.
 
-<img src="docs/images/pegasus-kubernetes-deployment.png?raw=true" width="600">
+<img src="docs/images/pegasus-kubernetes-deployment.png?raw=true">
 
 ## Basic scripts and files
 
