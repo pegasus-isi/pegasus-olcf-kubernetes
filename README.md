@@ -1,4 +1,4 @@
-# Running Pegasus and Condor on OLCF Kubernetes
+# Running Pegasus and HTCondor on OLCF Kubernetes
 
 This project prepares a container that can run on OLCF's Kubernetes infrastructure and provides yaml pod specification templates, that can be used to spawn pods that mount OLCF's GPFS filesystem and provide access to the batch schedulers of Summit, RHEA and the DTN.
 
