@@ -28,8 +28,8 @@ In bootstrap.sh update the section "ENV Variables For User and Group" with your 
 More specifically replace:
 - _USER_, with the username of your automation user (eg. csc001\_auser)
 - _USER\_ID_, with the user id of your automation user (eg. 20001)
-- _USER\_GROUP_, with the group name your automation user belongs to (eg. csc001)
-- _USER\_GROUP\_ID_, with the group id your automation user belongs to (eg. 10001)
+- _USER\_GROUP_, with the project name your automation user belongs to (eg. csc001)
+- _USER\_GROUP\_ID_, with the project group id your automation user belongs to (eg. 10001)
 - _GRIDMANAGER\_SERVICE\_PORT_, with the Kubernetes Nodeport port number the Gridmanager Service should use (eg. 32752)
 
 Step 1b: Run bootstrap.sh
