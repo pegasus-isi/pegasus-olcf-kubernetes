@@ -8,7 +8,9 @@ This project prepares a container that can run on OLCF's Kubernetes infrastructu
 
 _bootstrap.sh_. This script generates the personalized Dockerfile and Kubernetes pod and service specifications for your deployment. It updates the template files with your automation user acount details, and saves them under the Docker and the Specs folders.
 
-_Docker/Dockerfile_. Dockerfile used to prepare a container with Pegasus and Condor, ommiting Pegasus' R support
+_Docker/Dockerfile_. Dockerfile used to prepare a container with Pegasus and Condor, ommiting Pegasus' R support.
+
+_Specs/pegasus-docker-build.yml_. Contains Kubernetes build specifications for the pegasus-olcf image.
 
 _Specs/pegasus-submit-service.yml_. Contains Kubernetes service specification that can be used to spawn a Nodeport service that exposes the HTCondor Gridmanager Service running in your submit pod, to outside world.
 
