@@ -45,22 +45,22 @@ Step 2: Login to OLCF's Kubernetes
 oc login -u YOUR_USERNAME https://marble.ccs.ornl.gov/
 ```
 
-Step 3a: Create a new build and build the image
-------------------------------------------------
+Step 3a: Create a new build 
+----------------------------
 ```
-oc new-build --name=pegasus-olcf -D - < Docker/Dockerfile
+oc create -f Specs/pegasus-docker-build.yml
+```
+
+Step 3b: Start a new build with your updated Dockerfile
+--------------------------------------------------------
+```
+oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 ```
 
 You can trace the log of the build by running:
 
 ```
 oc logs -f build/pegasus-olcf-1
-```
-
-Step 3b: Start a new build in case the Dockerfile has been updated
--------------------------------------------------------------------
-```
-oc start-build pegasus-olcf --from-file=Docker/Dockerfile
 ```
 
 Step 4: Start a Kubernetes Service that will expose your pod services

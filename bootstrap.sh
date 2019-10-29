@@ -16,6 +16,9 @@ GRIDMANAGER_SERVICE_ADDRESS="${USER_GROUP}.marble.ccs.ornl.gov:${GRIDMANAGER_SER
 
 #### Don't edit this part ####
 
+sed -e "s/\"\$USER_GROUP\"/\"${USER_GROUP}\"/" \
+    templates/Specs/pegasus-docker-build.yml > Specs/pegasus-docker-build.yml
+
 sed -e "s/\"\$PEGASUS_VERSION\"/\"${PEGASUS_VERSION}\"/" \
     -e "s/\"\$PEGASUS_VERSION_NUM\"/\"${PEGASUS_VERSION_NUM}\"/" \
     -e "s/\"\$BOSCO_VERSION_NUM\"/\"${BOSCO_VERSION_NUM}\"/" \

@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    build: pegasus-olcf
+  name: pegasus-olcf
+  namespace: "$USER_GROUP"
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'pegasus-olcf:latest'
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    dockerfile: "FROM centos:centos7"
+    type: Dockerfile
+  strategy:
+    dockerStrategy:
+      noCache: true
+      from:
+        kind: ImageStreamTag
+        name: 'centos:centos7'
+        namespace: csc355
+    type: Docker
+  failedBuildsHistoryLimit: 5
+  successfulBuildsHistoryLimit: 5
