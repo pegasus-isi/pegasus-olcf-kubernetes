@@ -10,7 +10,7 @@ _bootstrap.sh_. This script generates the personalized Dockerfile and Kubernetes
 
 _Docker/Dockerfile_. Dockerfile used to prepare a container with Pegasus and Condor, ommiting Pegasus' R support.
 
-_Specs/pegasus-docker-build.yml_. Contains Kubernetes build specifications for the pegasus-olcf image.
+_Specs/pegasus-submit-build.yml_. Contains Kubernetes build specifications for the pegasus-olcf image.
 
 _Specs/pegasus-submit-service.yml_. Contains Kubernetes service specification that can be used to spawn a Nodeport service that exposes the HTCondor Gridmanager Service running in your submit pod, to outside world.
 
@@ -47,10 +47,10 @@ Step 2: Login to OLCF's Kubernetes
 oc login -u YOUR_USERNAME https://marble.ccs.ornl.gov/
 ```
 
-Step 3a: Create a new build 
-----------------------------
+Step 3a: Create a new build build configuration 
+------------------------------------------------
 ```
-oc create -f Specs/pegasus-docker-build.yml
+oc create -f Specs/pegasus-submit-build.yml
 ```
 
 Step 3b: Start a new build with your updated Dockerfile
