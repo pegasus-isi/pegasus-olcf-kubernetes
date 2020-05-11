@@ -53,7 +53,7 @@ RUN curl -L -o /opt/slurm_cluster_patch.tar.gz https://github.com/pegasus-isi/pe
 RUN for lnum in {829..834}; do sed -i "${lnum}s/\(.*\)/#\1/" /opt/bosco/bin/bosco_cluster; done
 
 #### Bosco SSH use socat for remote port forwarding ####
-RUN sed -i "170s/.*/        SOCAT_BIN=\/ccs\/proj\/csc355\/dtn\/socat\/bin\/socat\n        ssh \$SSH_ARGS -o \"BatchMode yes\" \$REMOTE_USER\@\$REMOTE_HOSTNAME \/bin\/bash -l -c \"'echo Allocated port \$port for remote forward to 1>\&2 ; \$SOCAT_BIN TCP-LISTEN:\$port,fork TCP:\$GRIDMANAGER_ADDRESS > \/dev\/null 2>\&1 \& SOCAT_PID=\\\\\$! ; CONDOR_CONFIG=\$REMOTE_GLITE\/etc\/condor_config.ft-gahp \$REMOTE_GLITE\/bin\/condor_ft-gahp -f \$* ; kill \\\\\$SOCAT_PID'\"/" /opt/bosco/sbin/remote_gahp
+RUN sed -i "170s/.*/        SOCAT_BIN=\/gpfs\/alpine\/csc355\/world-shared\/binaries\/dtn\/socat\/bin\/socat\n        ssh \$SSH_ARGS -o \"BatchMode yes\" \$REMOTE_USER\@\$REMOTE_HOSTNAME \/bin\/bash -l -c \"'echo Allocated port \$port for remote forward to 1>\&2 ; \$SOCAT_BIN TCP-LISTEN:\$port,fork TCP:\$GRIDMANAGER_ADDRESS > \/dev\/null 2>\&1 \& SOCAT_PID=\\\\\$! ; CONDOR_CONFIG=\$REMOTE_GLITE\/etc\/condor_config.ft-gahp \$REMOTE_GLITE\/bin\/condor_ft-gahp -f \$* ; kill \\\\\$SOCAT_PID'\"/" /opt/bosco/sbin/remote_gahp
 
 #### Bosco Default Config ####
 RUN mv /opt/bosco/local.* /opt/bosco/local && \
