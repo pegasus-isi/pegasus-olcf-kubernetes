@@ -1,4 +1,4 @@
-# Running Pegasus and HTCondor on OLCF Kubernetes
+# Running Pegasus and HTCondor on OLCF Kubernetes [![DOI](https://zenodo.org/badge/173674041.svg)](https://zenodo.org/badge/latestdoi/173674041)
 
 This project prepares a container that can run on OLCF's Kubernetes infrastructure and provides yaml pod specification templates, that can be used to spawn pods that mount OLCF's GPFS filesystem and provide access to the batch schedulers of Summit, RHEA and the DTN.
 
@@ -110,5 +110,3 @@ To delete the service use:
 ```
 oc delete svc pegasus-submit-service
 ```
-
-
