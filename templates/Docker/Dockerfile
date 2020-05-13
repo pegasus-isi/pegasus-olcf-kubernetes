@@ -36,8 +36,6 @@ RUN curl -o /opt/${PEGASUS_VERSION}.tar.gz http://download.pegasus.isi.edu/pegas
     chown ${USER}:${USER_GROUP} -R /opt/${PEGASUS_VERSION}
 
 ENV PATH "/opt/${PEGASUS_VERSION}/bin:$PATH"
-ENV PYTHONPATH "/opt/${PEGASUS_VERSION}/lib/python2.7/dist-packages:$PYTHONPATH"
-ENV PERL5LIB "/opt/${PEGASUS_VERSION}/lib/pegasus/perl:$PERL5LIB"
 
 #### Install and configure BOSCO ####
 RUN curl -o /opt/boscoinstaller.tar.gz ftp://ftp.cs.wisc.edu/condor/bosco/${BOSCO_VERSION_NUM}/boscoinstaller.tar.gz && \
@@ -87,6 +85,8 @@ RUN echo "#!/bin/bash" > /opt/entrypoint.sh && \
     chown ${USER}:${USER_GROUP} /opt/entrypoint.sh && chmod +x /opt/entrypoint.sh
 
 USER ${USER}
-RUN echo "source /opt/bosco/bosco_setenv" >> ${HOME}/.bashrc
+RUN echo "source /opt/bosco/bosco_setenv" >> ${HOME}/.bashrc && \
+    echo "export PYTHONPATH=$PYTHONPATH:$(pegasus-config --python):$(pegasus-config --python-externals)" >> ${HOME}/.bashrc && \
+    echo "export PERL5LIB=$PERL5LIB:$(pegasus-config --perl)" >> ${HOME}/.bashrc
 
 ENTRYPOINT [ "/opt/entrypoint.sh" ]
