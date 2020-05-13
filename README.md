@@ -1,4 +1,4 @@
-# Running Pegasus and HTCondor on OLCF Kubernetes [![DOI](https://zenodo.org/badge/173674041.svg)](https://zenodo.org/badge/latestdoi/173674041)
+# Running Pegasus and HTCondor on OLCF Kubernetes [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3825253.svg)](https://doi.org/10.5281/zenodo.3825253)
 
 This project prepares a container that can run on OLCF's Kubernetes infrastructure and provides yaml pod specification templates, that can be used to spawn pods that mount OLCF's GPFS filesystem and provide access to the batch schedulers of Summit, RHEA and the DTN.
 
